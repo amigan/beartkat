@@ -1,16 +1,16 @@
-$Amigan: beartkat/readme.txt,v 1.3 2005/01/05 21:28:56 dcp1990 Exp $
+$Amigan: beartkat/readme.txt,v 1.4 2005/01/05 21:38:26 dcp1990 Exp $
 *******************************************************************************
 ***									    ***
 ***				BearTKat Readme				    ***
 ***     PLEASE READ! PLEASE READ! PLEASE READ! PLEASE READ! PLEASE READ!    ***
 ***									    ***
 *******************************************************************************
-BearTKAT: http://amigan.freebsdguy.net/beartkat.html (mirror: http://flinkpoyd.homeunix.com:88/~dcp1990/beartkat.html)
+BearTKAT: http://flinkpoyd.homeunix.com:88/~dcp1990/beartkat.html (mirror http://amigan.freebsdguy.net/beartkat.html)
 1.0 Introduction
 	Welcome to BearTKat, one of the most fully-featured free scanner control applications for the BC250D and other Bearcat series scanner radios from Uniden that runs on both Unix and Windows! For someone new to computing, the Tcl/Tk approach may seem awkward and overly complicated. However, it is very sensible in actuality. Using Tcl/Tk allows more time to be spent on the application than interface coding and having differing codebases for different platforms. It also makes the author's job easier by bringing some comforts of the Unix programming environment to Windows, while maintaining consistency with other applications on the platform.
 	If you have bug reports, fixes, suggestions, questions, comments, or anything else, feel free to direct them to Dan at dcp1990@cox.net.
 1.1 System Prerequisites
-	*Tcl/Tk 8.4 (stock for Unix works fine, on Windows, ActiveTcl works very nicely) (available from http://www.tcl.tl/)
+	*Tcl/Tk 8.4 (stock for Unix works fine, on Windows, ActiveTcl works very nicely) (available from http://www.tcl.tk/)
 	*A BC250D radio and cable, other models may work with modifications
 	*A Unix-like operating system, Windows, and possibly Mac Classic
 	*A text editor (Vim is a fine choice)
