@@ -53,13 +53,15 @@ proc loadtolist {file lb} {
 	while {[gets $freqdbh cline] >= 0} {
 		if {[regexp -- "^(\[0-9\]{1,3}):(\[0-9\]{2,4})\\.(\[0-9\]{3,4}),\"(.{0,16})\",(.*)$" $cline a chan wmhz dmhz alpha flags]} {
 			if {$wmhz == 0} { continue }
-			$lb insert end [list [join [list $chan :] ""]  [join [list $wmhz "." $dmhz] ""] $alpha]
+			set cit {}
+			lappend cit $chan [join [list $wmhz . $dmhz] ""] $alpha
+			$lb insert end $cit
+#			$lb insert end [list [join [list $chan :] ""]  [join [list $wmhz "." $dmhz] ""] $alpha]
 		}
 	}
 	close $freqdbh
 }
 proc tunechan {chanline} {
-	if {[regexp -- "^(\[0-9\]{1,3}):" $chanline a chan]} {
-		scommand [join [list "MA" $chan] ""]
-	}
+	set chan [lindex $chanline 0]
+	scommand [join [list "MA" $chan] ""]
 }

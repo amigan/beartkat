@@ -1,9 +1,10 @@
 #!/usr/local/bin/wish8.4
 # under the DUPL
-# $Amigan: beartkat/src/beartkat.tcl,v 1.3 2005/01/05 20:47:32 dcp1990 Exp $
+# $Amigan: beartkat/src/beartkat.tcl,v 1.4 2005/01/05 21:17:01 dcp1990 Exp $
 # (C)2004-2005, Dan Ponte
 #YA!!!
 #package require wcb
+package require tablelist
 set lastcmd ""
 set version 0.2
 set tries 1
@@ -297,7 +298,13 @@ frame .chanl.b -height 4c -width 80c
 pack .chanl.b -side top -fill y -anchor w
 pack .chanl.f -side bottom -fill both -expand 1
 scrollbar .chanl.f.scb -command ".chanl.f.clist yview"
-listbox .chanl.f.clist -height 14 -setgrid 1 -width 64 -yscroll ".chanl.f.scb set"
+#listbox .chanl.f.clist -height 14 -setgrid 1 -width 64 -yscroll ".chanl.f.scb set"
+tablelist::tablelist .chanl.f.clist -columns \
+	{0 "Channel" left \
+	0 "Frequency" left \
+	0 "Alpha Tag" left} -yscrollcommand [list .chanl.f.scb set]
+.chanl.f.clist columnconfigure 1 -sortmode integer
+
 entry .chanl.b.fet -w 50
 button .chanl.b.load -text "Load FDB" -command {filedialog . {{"Frequency Database" {.fdb .chan}}} open .chanl.b.fet; loadtolist [.chanl.b.fet get] .chanl.f.clist }
 button .chanl.b.tune -text "Tune Selected" -command {set csel [.chanl.f.clist curselection] ; if {[string length $csel] == 0} {tk_messageBox -message "Nothing selected!" -type ok -icon error} else { tunechan [.chanl.f.clist get $csel]} }
