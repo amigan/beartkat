@@ -4,6 +4,7 @@
 ***     PLEASE READ! PLEASE READ! PLEASE READ! PLEASE READ! PLEASE READ!    ***
 ***									    ***
 *******************************************************************************
+BearTKAT: http://amigan.freebsdguy.net/beartkat.html (mirror: http://flinkpoyd.homeunix.com:88/~dcp1990/beartkat.html)
 1.0 Introduction
 	Welcome to BearTKat, one of the most fully-featured free scanner control applications for the BC250D and other Bearcat series scanner radios from Uniden that runs on both Unix and Windows! For someone new to computing, the Tcl/Tk approach may seem awkward and overly complicated. However, it is very sensible in actuality. Using Tcl/Tk allows more time to be spent on the application than interface coding and having differing codebases for different platforms. It also makes the author's job easier by bringing some comforts of the Unix programming environment to Windows, while maintaining consistency with other applications on the platform.
 	If you have bug reports, fixes, suggestions, questions, comments, or anything else, feel free to direct them to Dan at dcp1990@cox.net.
@@ -12,6 +13,7 @@
 	*A BC250D radio and cable, other models may work with modifications
 	*A Unix-like operating system, Windows, and possibly Mac Classic
 	*A text editor (Vim is a fine choice)
+	*The tablist package, available from http://www.nemethi.de/
 	*425k of disk space on Windows, less on Unix. More for frequency databases.
 1.2 Licensing
 	BearTKat is one of the first applications licensed under the DUPL. A copy of the DUPL should be in the source distribution or displayed during installation on Windows. Please take the time to read the license, and if you are a commercial entity, it is imperative that you do so. If you are unsure about any part, talk to qualified legal personnel.

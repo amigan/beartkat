@@ -6,11 +6,11 @@
 
 !define PRODUCT_NAME "BearTKat"
 
-!define PRODUCT_VERSION "0.1"
+!define PRODUCT_VERSION "0.3"
 
 !define PRODUCT_PUBLISHER "KiwiSoft"
 
-!define PRODUCT_WEB_SITE "http://skynard.flinkpoyd.homeunix.com:88/beartkat.html"
+!define PRODUCT_WEB_SITE "http://amigan.freebsdguy.net/beartkat.html"
 
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\makensis.exe"
 
@@ -165,19 +165,19 @@ sok:
 ExecShell open "http://www.tcl.tk/"
 
 
-
-;IfFileExists "C:\Tcl\lib\wcb3.0\wcb.tcl" tokt
-
-;MessageBox MB_okcancel "Apparently, Wcb3.0 isn't installed. Search http://wiki.tcl.tk/ for Wcb to find and install it." idok tok
-
-;quit
-
-;tok:
-
-;ExecShell open "http://wiki.tcl.tk/"
-
-;tokt:
 sokt:
+IfFileExists "c:\tcl\lib\tablelist3.7\scripts\tablelistWidget.tcl" tokt
+
+MessageBox MB_okcancel "Apparently, tablelist 3.7 isn't installed. Get it and install it from http://www.nemethi.de/." idok tok
+
+quit
+
+tok:
+
+ExecShell open "http://www.nemethi.de/"
+
+tokt:
+
   SetOutPath "$INSTDIR"
 
   SetOverwrite ifnewer
