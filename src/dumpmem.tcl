@@ -110,4 +110,5 @@ proc dumpsel {filename clabel} {
 			dumpbank $ky $filename 0
 		}
 	}
+	$clabel insert end "Dumping finished!\n"
 }
