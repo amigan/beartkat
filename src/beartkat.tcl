@@ -1,6 +1,6 @@
 #!/usr/local/bin/wish8.4
 # under the DUPL
-# $Amigan: beartkat/src/beartkat.tcl,v 1.5 2005/01/05 22:54:32 dcp1990 Exp $
+# $Amigan: beartkat/src/beartkat.tcl,v 1.6 2005/01/06 01:02:20 dcp1990 Exp $
 # (C)2004-2005, Dan Ponte
 #YA!!!
 #package require wcb
@@ -302,11 +302,26 @@ $tx insert end "This is the output area. Click the 'Open' button below to open a
 pack .freq.ys -side right -fill y
 pack .freq.outp -fill both -expand 1
 frame .freq.mfr -height 24c -width 80c
-pack .freq.mfr -side left -fill x
+frame .freq.banks
+pack .freq.mfr -side top -fill x
+pack .freq.banks -side bottom -fill x -after .freq.mfr -anchor s
 entry .freq.mfr.ftop -width 20
 button .freq.mfr.browse -text "Browse..." -command {filedialog . {{"Frequency Database" {.fdb .chan}}} save .freq.mfr.ftop}
-button .freq.mfr.dfreqs -text "Dump frequencies" -command {.freq.mfr.dfreqs configure -state disabled; dumpall [.freq.mfr.ftop get] $tx; .freq.mfr.dfreqs configure -state normal}
-pack .freq.mfr.ftop .freq.mfr.browse .freq.mfr.dfreqs -side left
+button .freq.mfr.dfreqs -text "Dump Frequencies" -command {.freq.mfr.dfreqs configure -state disabled; .freq.mfr.lfreqs configure -state disabled; dumpsel [.freq.mfr.ftop get] $tx; .freq.mfr.dfreqs configure -state normal; .freq.mfr.lfreqs configure -state normal}
+button .freq.mfr.browses -text "Browse..." -command {filedialog . {{"Frequency Database" {.fdb .chan}}} open .freq.mfr.ftop}
+button .freq.mfr.lfreqs -text "Load Frequencies" -command {.freq.mfr.dfreqs configure -state disabled; .freq.mfr.lfreqs configure -state disabled; loadfreqs [.freq.mfr.ftop get] $tx; .freq.mfr.dfreqs configure -state normal; .freq.mfr.lfreqs configure -state normal}
+pack .freq.mfr.ftop .freq.mfr.browse .freq.mfr.dfreqs .freq.mfr.browses .freq.mfr.lfreqs -side left
+#baks stuff
+label .freq.banks.lab -text "Banks to dump: "
+pack .freq.banks.lab -side left
+checkbutton .freq.banks.b_A -text "A" -variable bank_A -relief flat
+.freq.banks.b_A select
+pack .freq.banks.b_A -side left
+foreach {key} {B C D E F G H I J} {
+	checkbutton .freq.banks.b_$key -text "$key" -variable bank_$key -relief flat
+	.freq.banks.b_$key select
+	pack .freq.banks.b_$key -side left
+}
 toplevel .chanl
 wm title .chanl "Channels"
 frame .chanl.f -height 16c -width 80c

@@ -46,6 +46,7 @@ proc dumpbank {bank file fhn} {
 	set bend   [getbankechan $bank]
 	set ccdbh  [open $file "a"]
 	for {set cx $bstart} {$cx <= $bend} {incr cx} {
+		set x {}
 		if {[expr [string length $cx] < 3]} {
 			lappend x [join [list [string repeat "0" [expr 3- [string length $cx]]] $cx] ""]
 		} elseif {[expr $cx == 1000]} {
@@ -61,6 +62,7 @@ proc dumpbank {bank file fhn} {
 			set fta ",\"\""
 		}
 		if {[regexp -- "^C(\[0-9\]{3}) F(\[0-9\]{4})(\[0-9\]{4}) T(\[TFNY\]) D(\[TFNY\]) L(\[TFNY\]) A(\[TFNY\]) R(\[TFNY\]) N(\[0-9\]{3})" $result a chan wmhz dmhz trunked delay lockout atten recording ctcss]} {
+			if {$wmhz == 0} { continue }
 			set flags " "
 			if {[string equal "N" $delay]} {
 				lappend flags -d yes
@@ -97,4 +99,13 @@ proc dumpall {filename clabel} {
 	$clabel insert end "Dumping bank J...\n"
 	dumpbank "J" $filename 0
 	$clabel insert end "Dumping Finished!"
+}
+proc dumpsel {filename clabel} {
+	foreach {ky} {A B C D E F G H I J} {
+		global bank_$ky
+		if {[set bank_$ky]} {
+			$clabel insert end "Dumping bank $ky...\n"
+			dumpbank $ky $filename 0
+		}
+	}
 }

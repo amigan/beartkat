@@ -1,5 +1,5 @@
 #!/usr/local/bin/tclsh8.4
-proc loadfreqs {file} {
+proc loadfreqs {file labl} {
 	set freqdbh [ open $file "r" ]
 	while {[gets $freqdbh cline] >= 0} {
 		if {[regexp -- "^(\[0-9\]{1,3}):(\[0-9\]{2,4})\\.(\[0-9\]{3,4}),\"(.{0,16})\",(.*)$" $cline a chan wmhz dmhz alpha flags]} {
@@ -21,7 +21,7 @@ proc loadfreqs {file} {
 			}
 			set fcmd [join [list PM $rchan] ""]
 			set fcmdl [join [list $fcmd $fmhz]]
-			puts $fcmdl
+			$labl insert end "Sending channel $chan $alpha\n"
 			if {[expr [string length $alpha] > 0]} {
 				sendcommand "TA C $rchan $alpha"
 			}
@@ -30,6 +30,7 @@ proc loadfreqs {file} {
 					sendcommand "MA$rchan"
 					sendcommand "DLN"
 				} elseif {[string equal $key "-l"] && [string is boolean $value] && $value} {
+					$labl insert end "Locking out $chan...\n"
 					sendcommand "MA$rchan"
 					sendcommand "LON"
 				}
@@ -41,6 +42,7 @@ proc loadfreqs {file} {
 			} else {
 				set fbnk $bank
 			}
+			$labl insert end "Setting bank $fbnk to $btg...\n"
 			sendcommand "TA B $fbnk $btg"
 			unset -nocomplain a bank btg fbnk
 		}
