@@ -1,6 +1,6 @@
 #!/usr/local/bin/wish8.4
 # under the DUPL
-# $Amigan: beartkat/src/beartkat.tcl,v 1.4 2005/01/05 21:17:01 dcp1990 Exp $
+# $Amigan: beartkat/src/beartkat.tcl,v 1.5 2005/01/05 22:54:32 dcp1990 Exp $
 # (C)2004-2005, Dan Ponte
 #YA!!!
 #package require wcb
@@ -27,6 +27,22 @@ proc setalpha {chan tag fhh mde} {
 			}
 		}
 	}
+}
+proc aboutbox {} {
+	global version
+	toplevel .abtbox
+	frame .abtbox.msg
+	pack .abtbox.msg -fill both -side top
+	frame .abtbox.btn
+	pack .abtbox.btn -side bottom -fill x
+	label .abtbox.msg.icon -bitmap info
+	label .abtbox.msg.mess -text "BearTKat v$version - a scanner control app for the BC250D and other radios\n(C)2004-2005, Dan Ponte. Licensed under the DUPL.\nA copy of the DUPL should have been included with this application. If not, write dcp1990@cox.net.\nPortions (specifically the control protocol) are copyright (C)2003,2004 Uniden America, Inc.\nThis product is not endorsed by or affiliated with Uniden.\nThe \"Bearcat\" logo and the Bearcat name are property of Uniden America and are trademarked." -justify left
+	pack .abtbox.msg.icon -side left
+	pack .abtbox.msg.mess
+	button .abtbox.btn.ok -text "Ok" -command {destroy .abtbox}
+	pack .abtbox.btn.ok
+	wm resizable .abtbox 0 0
+	wm title .abtbox "About"
 }
 proc rejmod {w args} {
 #	wcb::cancel
@@ -218,7 +234,7 @@ menu .menubar.help -tearoff no
 .menubar add cascade -label "Help" -menu .menubar.help -underline 0
 .menubar.help add command -label "Help" -command {tk_messageBox -message "No online help yet. Try README.txt, included in the distribution." -type ok -icon info}
 .menubar.help add command -label "About my radio" -command {sendcommand "SI"}
-.menubar.help add command -label "About BearTKat" -command {tk_messageBox -message "BearTKat v$version - a scanner control app for the BC250D and other radios\n(C)2004-2005, Dan Ponte. Licensed under the DUPL.\nA copy of the DUPL should have been included with this application. If not, write dcp1990@cox.net.\nPortions (specifically the control protocol) are copyright (C)2003,2004 Uniden America, Inc.\nThis product is not endorsed by or affiliated with Uniden.\nThe \"Bearcat\" logo and the Bearcat name are property of Uniden America and are trademarked." -type ok -icon info -title "About BearTKat"}
+.menubar.help add command -label "About BearTKat" -command {aboutbox}
 if {$windows} {
 	menu .menubar.system -tearoff no
 	.menubar add cascade -label "System" -menu .menubar.system -underline 0
@@ -301,10 +317,11 @@ scrollbar .chanl.f.scb -command ".chanl.f.clist yview"
 #listbox .chanl.f.clist -height 14 -setgrid 1 -width 64 -yscroll ".chanl.f.scb set"
 tablelist::tablelist .chanl.f.clist -columns \
 	{0 "Channel" left \
-	0 "Frequency" left \
-	0 "Alpha Tag" left} -yscrollcommand [list .chanl.f.scb set]
-.chanl.f.clist columnconfigure 1 -sortmode integer
-
+	0 "Frequency" left 0 "Alpha Tag" left 0 "Delay" left 0 "L/O" left \
+	} -yscrollcommand [list .chanl.f.scb set]
+.chanl.f.clist columnconfigure 0 -sortmode integer
+#.chanl.f.clist columnconfigure 3 -name delay -editable no -editwindow checkbutton
+#.chanl.f.clist columnconfigure 4 -name lockout -editable no -editwindow checkbutton
 entry .chanl.b.fet -w 50
 button .chanl.b.load -text "Load FDB" -command {filedialog . {{"Frequency Database" {.fdb .chan}}} open .chanl.b.fet; loadtolist [.chanl.b.fet get] .chanl.f.clist }
 button .chanl.b.tune -text "Tune Selected" -command {set csel [.chanl.f.clist curselection] ; if {[string length $csel] == 0} {tk_messageBox -message "Nothing selected!" -type ok -icon error} else { tunechan [.chanl.f.clist get $csel]} }
