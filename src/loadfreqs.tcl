@@ -58,7 +58,7 @@ proc loadtolist {file lb} {
 		if {[regexp -- "^(\[0-9\]{1,3}):(\[0-9\]{2,4})\\.(\[0-9\]{3,4}),\"(.{0,16})\",(.*)$" $cline a chan wmhz dmhz alpha flags]} {
 			if {$wmhz == 0} { continue }
 			set cit {}
-			lappend cit $chan [join [list $wmhz . $dmhz] ""] $alpha
+			lappend cit [string trimleft $chan 0] [join [list $wmhz . $dmhz] ""] $alpha
 			foreach {key value} $flags {
 				if {[string equal $key "-d"] && [string is boolean $value] && $value} {
 					lappend cit True
