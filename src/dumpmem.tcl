@@ -42,6 +42,7 @@ proc simulcommand {command} {
 	}
 }
 proc dumpbank {bank file fhn} {
+        if {[string length $file] == 0} {return}
 	set bstart [getbankschan $bank]
 	set bend   [getbankechan $bank]
 	set ccdbh  [open $file "a"]
@@ -101,6 +102,7 @@ proc dumpall {filename clabel} {
 	$clabel insert end "Dumping Finished!"
 }
 proc dumpsel {filename clabel} {
+        if {[string length $filename] == 0} {return}
 	foreach {ky} {A B C D E F G H I J} {
 		global bank_$ky
 		if {[set bank_$ky]} {

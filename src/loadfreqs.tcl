@@ -1,5 +1,6 @@
 #!/usr/local/bin/tclsh8.4
 proc loadfreqs {file labl} {
+	if {[string length $file] == 0} {return}
 	set freqdbh [ open $file "r" ]
 	while {[gets $freqdbh cline] >= 0} {
 		if {[regexp -- "^(\[0-9\]{1,3}):(\[0-9\]{2,4})\\.(\[0-9\]{3,4}),\"(.{0,16})\",(.*)$" $cline a chan wmhz dmhz alpha flags]} {
