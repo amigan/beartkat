@@ -1,6 +1,6 @@
 #!/usr/local/bin/wish8.4
 # under the DUPL
-# $Amigan: beartkat/src/beartkat.tcl,v 1.2 2005/01/05 03:42:44 dcp1990 Exp $
+# $Amigan: beartkat/src/beartkat.tcl,v 1.3 2005/01/05 20:47:32 dcp1990 Exp $
 # (C)2004-2005, Dan Ponte
 #YA!!!
 #package require wcb
@@ -293,16 +293,18 @@ pack .freq.mfr.ftop .freq.mfr.browse .freq.mfr.dfreqs -side left
 toplevel .chanl
 wm title .chanl "Channels"
 frame .chanl.f -height 16c -width 80c
-frame .chanl.b -height 4c -width 80c
-pack .chanl.f .chanl.b -side top -fill y
+frame .chanl.b -height 4c -width 80c 
+pack .chanl.b -side top -fill y -anchor w
+pack .chanl.f -side bottom -fill both -expand 1
 scrollbar .chanl.f.scb -command ".chanl.f.clist yview"
 listbox .chanl.f.clist -height 14 -setgrid 1 -width 64 -yscroll ".chanl.f.scb set"
-entry .chanl.b.fet -width 20
+entry .chanl.b.fet -w 50
 button .chanl.b.load -text "Load FDB" -command {filedialog . {{"Frequency Database" {.fdb .chan}}} open .chanl.b.fet; loadtolist [.chanl.b.fet get] .chanl.f.clist }
 button .chanl.b.tune -text "Tune Selected" -command {set csel [.chanl.f.clist curselection] ; if {[string length $csel] == 0} {tk_messageBox -message "Nothing selected!" -type ok -icon error} else { tunechan [.chanl.f.clist get $csel]} }
 pack .chanl.f.scb -side right -fill y
-pack .chanl.f.clist -side left -fill x
-pack .chanl.b.fet .chanl.b.load .chanl.b.tune -side left -fill y
+pack .chanl.f.clist -side left -fill both -expand 1
+pack .chanl.b.load .chanl.b.tune -side left 
+pack .chanl.b.fet -side right -fill x -expand 1
 #wcb::callback $tx before insert rejmod
 #wcb::callback $tx before delete rejmod
 wm protocol . WM_DELETE_WINDOW {exit}
