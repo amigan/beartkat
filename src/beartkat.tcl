@@ -1,10 +1,11 @@
 #!/usr/local/bin/wish8.4
 # under the DUPL
+# $Amigan: beartkat/src/beartkat.tcl,v 1.2 2005/01/05 03:42:44 dcp1990 Exp $
 # (C)2004-2005, Dan Ponte
 #YA!!!
 #package require wcb
 set lastcmd ""
-set version 0.1
+set version 0.2
 set tries 1
 set gotresp no
 set donthandle no
