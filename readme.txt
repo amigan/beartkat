@@ -1,4 +1,4 @@
-$Amigan: beartkat/readme.txt,v 1.5 2005/01/17 15:36:03 dcp1990 Exp $
+$Amigan: beartkat/readme.txt,v 1.6 2005/01/17 16:27:33 dcp1990 Exp $
 *******************************************************************************
 ***									    ***
 ***				BearTKat Readme				    ***
@@ -47,3 +47,84 @@ To dump your frequencies, use the buttons in the "Frequencies" window. Open the 
 To load your frequencies, use the "Load Frequencies" button. Select the frequency database using the rightmost "Browse" button.
 2.5 Channel dialog
 	The channel dialog allows one to load a dump in the proper format and manage the channels. Currently, only tuning to a specific channel is supported (and the scanner and dump file must be in sync to work properly).
+2.6 Advanced Configuration
+	Advanced configuration is done by way of the beartkat.conf script, which is sourced from the configuration script (housing the configuration namespace).
+	There are a couple parameters specific to the namespace, but any Tcl code may go in beartkat.conf (although this is not recommended except for simple stuff). Currently, the parameters include:
+	* baud
+	* prinotif
+	* interval
+	* serial
+	Here is a detailed list of the commands, with synopsises:
+BAUD			beartkat general configuration			BAUD
+
+COMMAND
+	baud - set baud rate of scanner
+
+SYNOPSIS
+	baud <baud rate>
+
+DESCRIPTION
+	baud sets the baud rate. The baud rate is any integer. Make sure that
+	the scanner is also set to this rate (available in the SYSTEM OPTION
+	menu).
+
+SEE ALSO
+	serial
+
+BAUD				17 January 2005				BAUD
+******************************************************************************
+SERIAL			beartkat general configuration			SERIAL
+
+COMMAND
+	serial - set serial port
+
+SYNOPSIS
+	serial <serial device>
+
+DESCRIPTION
+	serial sets the serial port that the radio is connected to. On
+	windows, this is either of COM1:, COM2:, COM3, COM4:, etc. On Unix,
+	this is the character special device (/dev/cuaa0, /dev/cuaa1,
+	/dev/ttyS0, etc). You must have read and write permissions to this
+	device.
+
+SEE ALSO
+	baud
+SERIAL				17 January 2005				SERIAL
+******************************************************************************
+PRINOTIF		beartkat general configuration		        PRINOTIF
+
+COMMAND
+	prinotif - set priority squelch notification mode
+
+SYNOPSIS
+	prinotif <yes|no|passive>
+
+DESCRIPTION
+	prinotif sets the priority squelch notification mode. When this is on,
+	the LCD display in the LCD window will turn red upon priority squelch
+	open.
+	Setting this to 'yes' will make beartkat tell the scanner to send the
+	host such notifications. Setting this to 'no' will make beartkat tell
+	the radio not to send the host these notifications. Setting this to
+	'passive' will make beartkat do nothing, but if a notification comes
+	in, it will notify the user.
+
+SEE ALSO
+	interval
+
+PRINOTIF			17 January 2005				PRINOTIF
+******************************************************************************
+INTERVAL		beartkat general configuration		        INTERVAL
+
+COMMAND
+	interval - set polling interval in polling mode
+
+SYNOPSIS
+	interval <seconds>
+
+DESCRIPTION
+	interval sets the polling interval in polling mode. Self-explanatory.
+
+INTERVAL			17 January 2005				INTERVAL
+******************************************************************************
