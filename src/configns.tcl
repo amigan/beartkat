@@ -10,9 +10,11 @@ namespace eval btkConfig {
 	variable ttydev "/dev/cuaa0"
 	variable baudrate 19200
 	variable interv 1000
+	variable notify yes
 	namespace export baud
 	namespace export serial
 	namespace export interval
+	namespace export notify
 	proc baud {rate} {
 		if {[string is integer $rate]} {
 			set btkConfig::baudrate $rate
@@ -30,7 +32,16 @@ namespace eval btkConfig {
 			tk_messageBox -message "Error: interval parameter only accepts arguments in the form of a number. Using default." -type ok -icon error -title "Configuration error"
 		}
 	}
+	proc prinotif ynms {
+		if {$ynms} {
+			set btkConfig::notify "yes"
+		} elseif {[string equal $ynms "passive"]} {
+			set btkConfig::notify "pass"
+		} elseif {!$ynms} {
+			set btkConfig::notify "no"
+		}
+	}
 }
-namespace import btkConfig::baud btkConfig::serial btkConfig::interval
+namespace import btkConfig::baud btkConfig::serial btkConfig::interval btkConfig::prinotif
 source beartkat.conf
 namespace forget btkConfig::*

@@ -1,6 +1,6 @@
 #!/usr/local/bin/wish8.4
 # under the DUPL
-# $Amigan: beartkat/src/beartkat.tcl,v 1.6 2005/01/06 01:02:20 dcp1990 Exp $
+# $Amigan: beartkat/src/beartkat.tcl,v 1.7 2005/01/06 02:02:22 dcp1990 Exp $
 # (C)2004-2005, Dan Ponte
 #YA!!!
 #package require wcb
@@ -199,6 +199,14 @@ proc handlefile fhh {
 			set blevel [expr {int( $batl * .392156862745098)}]
 			tk_messageBox -message "Scanner reported the following:\nModel: $model\nRemote Command Version: $rcmdv\nESN (not used): $esn\nBattery Level: $batl ($blevel%)" -type ok -icon info -title "About my radio"
 		}
+	} elseif {[regexp -- "PST" $curin]} {
+		foreach {kg} {1 2 3 4} {
+			.disp.scr.lcd$kg configure -background red
+		}
+	} elseif {[regexp -- "PRT" $curin]} {
+		foreach {kg} {1 2 3 4} {
+			.disp.scr.lcd$kg configure -background orange
+		}
 	} elseif {[string length $curin] > 1} {
 		set lastin $curin
 	}
@@ -257,6 +265,13 @@ label .disp.scr.lcd2 -width 16 -text "                " -background orange -font
 label .disp.scr.lcd3 -width 16 -text "                " -background orange -font "Courier 10"
 label .disp.scr.lcd4 -width 16 -text "                " -background orange -font "Courier 10"
 pack .disp.scr.lcd1 .disp.scr.lcd2 .disp.scr.lcd3 .disp.scr.lcd4
+if {$btkConfig::notify} {
+	sendcommand "RIN"
+} elseif {[string equal $btkConfig::notify pass]} {
+# do nothing
+} elseif {!$btkConfig::notify} {
+	sendcommand "RIF"
+}
 #label .disp.scr.batt -width 10 -text "Batt: ---" -background orange -font "Courier 10"
 #pack .disp.scr.batt -side left
 frame .disp.but -borderwidth 2 -width 16c -height 7c
