@@ -1,0 +1,9 @@
+bearTKat ChangeLog -- $Amigan: beartkat/CHANGELOG,v 1.1 2005/01/17 16:41:03 dcp1990 Exp $ -- Starting with 0.3
+
+0.3:
+*Added tickmarks for selective dumping
+*Added better interface to the loader
+*Fixed Open/Save dialog type errors for browsing
+*Added documentation for configuration options
+*Added priority squelch notification
+*Updated to new website
