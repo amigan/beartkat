@@ -1,6 +1,6 @@
 #!/usr/local/bin/wish8.4
 # under the DUPL
-# $Amigan: beartkat/src/beartkat.tcl,v 1.11 2005/01/22 21:19:14 dcp1990 Exp $
+# $Amigan: beartkat/src/beartkat.tcl,v 1.12 2005/05/30 18:41:17 dcp1990 Exp $
 # (C)2004-2005, Dan Ponte
 #YA!!!
 #package require wcb
@@ -15,7 +15,7 @@ proc setalpha {chan tag fhh mde} {
 		return
 	}
 	if {[string equal $mde "set"]} {
-		sendcommand [list TA C $chan $tag]
+		sendcommand [concat TA C $chan $tag]
 	} elseif {[string equal $mde "clear"]} {
 		sendcommand "TA C $chan "
 	} elseif {[string equal $mde "get"]} {
@@ -36,7 +36,7 @@ proc aboutbox {} {
 	frame .abtbox.btn
 	pack .abtbox.btn -side bottom -fill x
 	label .abtbox.msg.icon -bitmap info
-	label .abtbox.msg.mess -text "BearTKat v$version - a scanner control app for the BC250D and other radios\n(C)2004-2005, Dan Ponte. Licensed under the DUPL.\nA copy of the DUPL should have been included with this application. If not, write dcp1990@neptune.atopia.net.\nPortions (specifically the control protocol) are copyright (C)2003,2004 Uniden America, Inc.\nThis product is not endorsed by or affiliated with Uniden.\nThe \"Bearcat\" logo and the Bearcat name are property of Uniden America and are trademarked.\n\$Amigan: beartkat/src/beartkat.tcl,v 1.11 2005/01/22 21:19:14 dcp1990 Exp $\nhttp://www.theamigan.net/beartkat.html" -justify left
+	label .abtbox.msg.mess -text "BearTKat v$version - a scanner control app for the BC250D and other radios\n(C)2004-2005, Dan Ponte. Licensed under the DUPL.\nA copy of the DUPL should have been included with this application. If not, write dcp1990@neptune.atopia.net.\nPortions (specifically the control protocol) are copyright (C)2003,2004 Uniden America, Inc.\nThis product is not endorsed by or affiliated with Uniden.\nThe \"Bearcat\" logo and the Bearcat name are property of Uniden America and are trademarked.\n\$Amigan: beartkat/src/beartkat.tcl,v 1.12 2005/05/30 18:41:17 dcp1990 Exp $\nhttp://www.theamigan.net/beartkat.html" -justify left
 	pack .abtbox.msg.icon -side left
 	pack .abtbox.msg.mess
 	button .abtbox.btn.ok -text "Ok" -command {destroy .abtbox}
