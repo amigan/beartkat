@@ -1,6 +1,6 @@
 #!/usr/local/bin/wish8.4
 # under the DUPL
-# $Amigan: beartkat/src/beartkat.tcl,v 1.13 2005/05/31 21:13:51 dcp1990 Exp $
+# $Amigan: beartkat/src/beartkat.tcl,v 1.14 2008/07/21 15:16:23 dcp1990 Exp $
 # (C)2004-2005, Dan Ponte
 #YA!!!
 #package require wcb
@@ -10,6 +10,11 @@ set version 0.3
 set tries 1
 set gotresp no
 set donthandle no
+if {[expr {$argc == 1} && {[lindex $argv 0] == "-r"}]} {
+	set realmode false
+} else {
+	set realmode true
+}
 proc setalpha {chan tag fhh mde} {
 	if {[expr [string length $chan] != 3]} {
 		return
@@ -36,7 +41,7 @@ proc aboutbox {} {
 	frame .abtbox.btn
 	pack .abtbox.btn -side bottom -fill x
 	label .abtbox.msg.icon -bitmap info
-	label .abtbox.msg.mess -text "BearTKat v$version - a scanner control app for the BC250D and other radios\n(C)2004-2005, Dan Ponte. Licensed under the DUPL.\nA copy of the DUPL should have been included with this application. If not, write dcp1990@neptune.atopia.net.\nPortions (specifically the control protocol) are copyright (C)2003,2004 Uniden America, Inc.\nThis product is not endorsed by or affiliated with Uniden.\nThe \"Bearcat\" logo and the Bearcat name are property of Uniden America and are trademarked.\n\$Amigan: beartkat/src/beartkat.tcl,v 1.13 2005/05/31 21:13:51 dcp1990 Exp $\nhttp://www.theamigan.net/beartkat.html" -justify left
+	label .abtbox.msg.mess -text "BearTKat v$version - a scanner control app for the BC250D and other radios\n(C)2004-2005, Dan Ponte. Licensed under the DUPL.\nA copy of the DUPL should have been included with this application. If not, write dcp1990@neptune.atopia.net.\nPortions (specifically the control protocol) are copyright (C)2003,2004 Uniden America, Inc.\nThis product is not endorsed by or affiliated with Uniden.\nThe \"Bearcat\" logo and the Bearcat name are property of Uniden America and are trademarked.\n\$Amigan: beartkat/src/beartkat.tcl,v 1.14 2008/07/21 15:16:23 dcp1990 Exp $\nhttp://www.theamigan.net/beartkat.html" -justify left
 	pack .abtbox.msg.icon -side left
 	pack .abtbox.msg.mess
 	button .abtbox.btn.ok -text "Ok" -command {destroy .abtbox}
@@ -218,8 +223,12 @@ source dumpmem.tcl
 source loadfreqs.tcl
 source chanedit.tcl
 wm geometry . "=200x100"
-set fhn [ open $btkConfig::ttydev "r+" ]
-fconfigure $fhn -mode $btkConfig::baudrate,n,8,1 -blocking no
+if { $realmode } {
+	set fhn [ open $btkConfig::ttydev "r+" ]
+	fconfigure $fhn -mode $btkConfig::baudrate,n,8,1 -blocking no
+} else {
+	set fhn 0
+}
 wm title . "BearTkat v$version"
 frame .mfr -borderwidth 2 -width 102c -height 30c
 grid .mfr -sticky wwwwwnnnnn -row 0 -column 0
@@ -308,7 +317,9 @@ button .disp.butk.dec -text "." -command {sendcommand "KEY03"}
 button .disp.butk.kn0 -text "0" -command {sendcommand "KEY02 0"}
 button .disp.butk.enter -text "E" -command {sendcommand KEY04}
 grid .disp.butk.dec .disp.butk.kn0 .disp.butk.enter -sticky we
-fileevent $fhn readable {handlefile $fhn}
+if {$realmode} {
+	fileevent $fhn readable {handlefile $fhn}
+}
 set tx .freq.outp
 toplevel .freq
 wm title .freq "Frequencies"

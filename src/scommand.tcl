@@ -3,16 +3,24 @@ proc scommand {command} {
 	global fhn
 	global lastin
 	global lastcmd
-	puts $fhn $command
-	flush $fhn
+	global realmode
 	set lastcmd $command
-	vwait lastin
-	return $lastin
+	if {$realmode} {
+		puts $fhn $command
+		flush $fhn
+		vwait lastin
+		return $lastin
+	} else {
+		return OK
+	}
 }
 proc sendcommand {cmd} {
 	global lastcmd
 	global fhn
-	puts $fhn $cmd
-	flush $fhn
+	global realmode
 	set lastcmd $cmd
+	if {$realmode} {
+		puts $fhn $cmd
+		flush $fhn
+	}
 }
