@@ -17,7 +17,7 @@ BearTKAT: http://www.theamigan.net/beartkat.html -- mirror: http://styx.theamiga
 	*The tablist package, available from http://www.nemethi.de/
 	*425k of disk space on Windows, less on Unix. More for frequency databases.
 1.2 Licensing
-	BearTKat is one of the first applications licensed under the DUPL. A copy of the DUPL should be in the source distribution or displayed during installation on Windows. Please take the time to read the license, and if you are a commercial entity, it is imperative that you do so. If you are unsure about any part, talk to qualified legal personnel.
+	This software was formerly licensed under the DUPL, which was pretty stupid. It is now under the BSD license (3 clause).
 1.3 Developer Test Platforms
 	Dan is able to test BearTKat on:
 	*FreeBSD (stock Unix Tcl/Tk 8.4)
